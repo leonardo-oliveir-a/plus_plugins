@@ -518,9 +518,10 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
            withController:(UIViewController *)controller
                  atSource:(CGRect)origin
                  toResult:(FlutterResult)result {
-  NSObject *data = [[SharePlusData alloc] initWithSubject:subject
-                                                     text:shareText];
-  [self share:@[ data ]
+  // Share the plain string, as Notes does. Wrapped in SharePlusData (an
+  // UIActivityItemSource with LPLinkMetadata), WhatsApp keeps only the URL
+  // found in the text and drops the rest of the message.
+  [self share:@[ shareText ]
                 withSubject:subject
       excludedActivityTypes:excludedActivityTypes
              withController:controller
